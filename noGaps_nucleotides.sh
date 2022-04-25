@@ -1,9 +1,10 @@
 #!/bin/bash
 
-##This script will remove gap-only columns and columns with non-gaps in 4 or less taxa from an alignment. All files need to be fasta format, and as written the file suffix must be .fas
+##This script will remove columns with non-gaps in 4 or less taxa from an alignment. If dealing with RADseq data and more than 5 individuals, this should remove all gap columns as expected. See below for potential modification
+##All files need to be fasta format, and as written the file suffix must be .fas
 
 echo "Removing gap-only columns..." 
-for FILENAME in *fas.sl
+for FILENAME in *fas
 do
 awk 'BEGIN { FS = "" }
 !/^>/ { \
@@ -26,6 +27,6 @@ END { \
   } \
 }' $FILENAME > $FILENAME.nogaps
 done
-#rename .fas.nogaps .fas *.fas.nogaps
+rename .fas.nogaps .fas *.fas.nogaps
 echo Done
 echo
