@@ -4,9 +4,10 @@ addprocs(10)
 using Pkg
 using PhyloNetworks
 using PhyloPlots
-using CSV
 using RCall
-using QuartetNetworkGoodnessFit, DataFrames, CSV
+using QuartetNetworkGoodnessFit
+using DataFrames
+using CSV
 using Gadfly
 cd("C:\\Users\\nwhelan\\Documents\\Patera\\RADseq\\SNAQ\\r100-update")
 
