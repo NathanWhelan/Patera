@@ -30,11 +30,10 @@ CSV.write("tableCF_BS10.csv", df) #writes table for use later
 iqtreeCF_BS10 = readTableCF("tableCF_BS10.csv") #probably could use df, but wrote to disk and now read back in.
 #less("tableCF.csv") #Can be done for sanity check.
 
-
+##Read in ASTRAL tree for starting tree.
 astralfile_rooted = ("patera_m3M5N5_populations_r100_maf025_multiSNP_nogaps-rooted.ASTRAL.tre")
 astraltree_rooted = readTopology(astralfile_rooted)
-#Read in Topology Level 1 for starting Tree
-T_rooted=readTopologyLevel1("patera_m3M5N5_populations_r100_maf025_multiSNP_nogaps-rooted.ASTRAL.tre")
+
 
 ##Run snaq with hmax=0, using astral tree as starting tree, to get starting tree for network inference below..
 net0 = snaq!(astraltree_rooted,iqtreeCF_BS10, hmax=0, filename="net0", seed=1234)
@@ -42,24 +41,22 @@ plot(net0, :R); #Sanity Check
 
 ##Run snaq with different hmax values.
 
-net1 = snaq!(net0, iqtreeCF_BS10, hmax=1, filename="net1_bs10", seed=2345)
 iqtreeCF_BS10 = readTableCF("tableCF_BS10.csv")
-net1_test = snaq!(net0, iqtreeCF_BS10, hmax=1, filename="net1_bs10_test", seed=3456)
+net1_test = snaq!(net0, iqtreeCF_BS10, hmax=1, filename="net1_bs10", seed=3456)
 iqtreeCF_BS10 = readTableCF("tableCF_BS10.csv")
-net2_test = snaq!(net0, iqtreeCF_BS10, hmax=2, filename="net2_bs10_test", seed=3456)
+net2_test = snaq!(net0, iqtreeCF_BS10, hmax=2, filename="net2_bs10", seed=3456)
 iqtreeCF_BS10 = readTableCF("tableCF_BS10.csv")
-net3_test = snaq!(net0, iqtreeCF_BS10, hmax=2, filename="net3_bs10_test", seed=3456)
+net3_test = snaq!(net0, iqtreeCF_BS10, hmax=2, filename="net3_bs10", seed=3456)
 iqtreeCF_BS10 = readTableCF("tableCF_BS10.csv")
-net4_test = snaq!(net0, iqtreeCF_BS10, hmax=2, filename="net4_bs10_test", seed=3456)
+net4_test = snaq!(net0, iqtreeCF_BS10, hmax=2, filename="net4_bs1", seed=3456)
 
 
 
-
-net1 = readSnaqNetwork("net1_bs10_test.out") #will read what is generated with snaq! command.
 net0 = readSnaqNetwork("net0.out") #read in files after tree generation
-net2 = readSnaqNetwork("net2_bs10_test.out")
-net3 = readSnaqNetwork("net3_bs10_test.out")
-net4 = readSnaqNetwork("net4_bs10_test.out")
+net1 = readSnaqNetwork("net1_bs10.out") #will read what is generated with snaq! command.
+net2 = readSnaqNetwork("net2_bs10.out")
+net3 = readSnaqNetwork("net3_bs10.out")
+net4 = readSnaqNetwork("net4_bs10.out")
 
 iqtreeCF_BS10 = readTableCF("tableCF_BS10.csv")
 topologyMaxQPseudolik!(net0,iqtreeCF_BS10)
@@ -91,7 +88,7 @@ CSV.write("fittedCF_bs10_net1.csv",df_long_net1)
 CSV.write("fittedCF_bs10_net2.csv",df_long_net2)
 CSV.write("fittedCF_bs10_net3.csv",df_long_net3)
 CSV.write("fittedCF_bs10_net4.csv",df_long_net4)
-
+##See R code for plotting expected vs observed CF. Plotting withing Julia kept failing on my system.
 
 ###Plot networks, reroot as needed, and determine if networks conflict with outgroup.
 netlist1 = readMultiTopology("net1.networks")
