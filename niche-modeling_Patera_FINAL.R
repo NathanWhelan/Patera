@@ -175,7 +175,7 @@ print("stacking done")
 
 
 ##CSV should be "species,longitude,latitude"
-<-read.csv("~/Patera/Niche-modeling/thinning/clarki-nantahala_1KM-thinned_rarefied_points.csv")
+x<-read.csv("~/Patera/Niche-modeling/thinning/clarki-nantahala_1KM-thinned_rarefied_points.csv")
 
 ##Format for ENMTools
 colnames(x)[1:3]<-c("species","Longitude","Latitude")
